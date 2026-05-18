@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juego - HTML Plano</title>
+</head>
+<body>
+
+    <section id="body">
+    <h2> Gestión de puntuaciones (HTML Plano)</h2>
+    <button id="body_btNuevoPlayer">Nuevo player</button>
+    <hr>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Carta 1</th>
+          <th>Carta 2</th>
+          <th>Carta 3</th>
+          <th>Puntaje total</th>
+        </tr>
+      </thead>
+      <tbody id="body_players"></tbody>
+    </table>
+    <hr>
+    <div>
+      Cantidad de players procesados: <span id="body_lblCntPlayers">0</span>
+    </div>
+    <div>
+      Valor de la ultima carta: <span id="body_lblValorUltiCarta">0</span>
+    </div>
+    <div>
+      Nombre del player con cartas superiores a la ultima: <span id="body_lblValorMayoresCartas">xxx</span>
+    </div>
+    <div>
+      Procesos usados: forEach, push, length
+    </div>
+  </section>
+
+
+
+  <section id="player" hidden style="margin-top: 20px; border: 1px solid #ccc; padding: 15px; width: 300px;">
+    <h5 id="player_lblPlayer">Procesar Player</h5>
+    <div>
+      <label>Nombre:
+        <input type="text" id="player_inNombre" placeholder="Nombre del player">
+      </label>
+    </div>
+    <div>
+      <label>Carta 1:
+        <input type="number" id="player_inCarta1" placeholder="Ej: 12">
+      </label>
+    </div>
+    <div>
+      <label>Carta 2:
+        <input type="number" id="player_inCarta2" placeholder="Ej: 12">
+      </label>
+    </div>
+    <div>
+      <label>Carta 3:
+        <input type="number" id="player_inCarta3" placeholder="Ej: 12">
+      </label>
+    </div>
+    <br>
+    <button id="player_btCancelar">Cancelar</button>
+    <button id="player_btAceptar">Aceptar</button>
+  </section>
+
+
+
+   <script type="module">
+    import Cl_cJuego from "./dist/controllers/Cl_cJuego.js";
+    import Cl_cPlayer from "./dist/controllers/Cl_cPlayer.js";
+
+    import Cl_vJuego from "./dist/views/Cl_vJuego.js";
+    import Cl_vPlayer from "./dist/views/Cl_vPlayer.js";
+
+    const vistaJuego = new Cl_vJuego();
+    const vistaPlayer = new Cl_vPlayer();
+
+    const controladorPlayer = new Cl_cPlayer(vistaPlayer);
+    new Cl_cJuego(vistaJuego, controladorPlayer);
+  </script>
+</body>
+
+</html>
