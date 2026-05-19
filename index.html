@@ -11,7 +11,7 @@
     <h2> Gestión de puntuaciones (HTML Plano)</h2>
     <button id="body_btNuevoPlayer">Nuevo player</button>
     <hr>
-    <table>
+    <table class="table table-stripped" border="1">
       <thead>
         <tr>
           <th>Nombre</th>
@@ -25,16 +25,16 @@
     </table>
     <hr>
     <div>
-      Cantidad de players procesados: <span id="body_lblCntPlayers">0</span>
+    Cantidad de registros procesados: <span id="body_lblCntPlayers">0</span>
     </div>
     <div>
-      Valor de la ultima carta: <span id="body_lblValorUltiCarta">0</span>
+    El último participante es: <span id="body_lblNombreUltimo">---</span>
     </div>
     <div>
-      Nombre del player con cartas superiores a la ultima: <span id="body_lblValorMayoresCartas">xxx</span>
+    Nombres con valor superior al último: <span id="body_lblNombresMayores">---</span>
     </div>
     <div>
-      Procesos usados: forEach, push, length
+    Métodos de ARRAYS usados: <span id="body_lblMetodosUsados">---</span>
     </div>
   </section>
 

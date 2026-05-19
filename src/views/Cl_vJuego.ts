@@ -5,8 +5,9 @@ const html = String.raw;
 
 export default class Cl_vJuego implements I_vJuego {
   lblCntPlayers: HTMLLabelElement;
-  lblValorUltiCarta: HTMLLabelElement;
-  lblValorMayoresCartas: HTMLLabelElement;
+  lblNombreUltimo: HTMLLabelElement;
+  lblNombresMayores: HTMLLabelElement;
+  lblMetodosUsados: HTMLLabelElement;
   btNuevoPlayer: HTMLButtonElement;
   tbPlayers: HTMLTableElement;
   vista: HTMLElement | null;
@@ -21,11 +22,14 @@ export default class Cl_vJuego implements I_vJuego {
       this.lblCntPlayers = document.getElementById("body_lblCntPlayers") as HTMLLabelElement;
       if (!this.lblCntPlayers) throw new Error("Elemento 'body_lblCntPlayers' no encontrado en DOM");
 
-      this.lblValorUltiCarta = document.getElementById("body_lblValorUltiCarta") as HTMLLabelElement;
-      if (!this.lblValorUltiCarta) throw new Error("Elemento 'body_lblValorUltiCarta' no encontrado en DOM");
+      this.lblNombreUltimo = document.getElementById("body_lblNombreUltimo") as HTMLLabelElement;
+      if (!this.lblNombreUltimo) throw new Error("Elemento 'body_lblNombreUltimo' no encontrado en DOM");
 
-      this.lblValorMayoresCartas = document.getElementById("body_lblValorMayoresCartas") as HTMLLabelElement;
-      if (!this.lblValorMayoresCartas) throw new Error("Elemento 'body_lblValorMayoresCartas' no encontrado en DOM");
+      this.lblNombresMayores = document.getElementById("body_lblNombresMayores") as HTMLLabelElement;
+      if (!this.lblNombresMayores) throw new Error("Elemento 'body_lblNombresMayores' no encontrado en DOM");
+
+      this.lblMetodosUsados = document.getElementById("body_lblMetodosUsados") as HTMLLabelElement;
+      if (!this.lblMetodosUsados) throw new Error("Elemento 'body_lblMetodosUsados' no encontrado en DOM");
 
       this.tbPlayers = document.getElementById("body_players") as HTMLTableElement;
       if (!this.tbPlayers) throw new Error("Elemento 'body_players' no encontrado en DOM");
@@ -38,14 +42,17 @@ export default class Cl_vJuego implements I_vJuego {
   mostrarPlayers({
     players,
     cntPlayers,
-    valorUltiCarta,
-    valorMayoresCartas,
+    nombreUltimo,
+    nombresMayores,
+    metodosUsados
   }: {
     players: Cl_mPlayer[];
     cntPlayers: number;
-    valorUltiCarta: number;
-    valorMayoresCartas: string[];
+    nombreUltimo: string;
+    nombresMayores: string[];
+    metodosUsados: string;
   }): void {
+
     this.tbPlayers.innerHTML = "";
     players.forEach((player) => {
       const tr = document.createElement("tr");
@@ -59,10 +66,12 @@ export default class Cl_vJuego implements I_vJuego {
       this.tbPlayers.appendChild(tr);
     });
     this.lblCntPlayers.innerHTML = cntPlayers.toString();
-    this.lblValorUltiCarta.innerHTML = valorUltiCarta.toString();
-    this.lblValorMayoresCartas.innerHTML = Array.isArray(valorMayoresCartas)
-      ? valorMayoresCartas.join(", ")
-      : String(valorMayoresCartas);
+    this.lblNombreUltimo.innerHTML = nombreUltimo;
+
+    this.lblNombresMayores.innerHTML = Array.isArray(nombresMayores) && nombresMayores.length > 0 
+            ? nombresMayores.join(", ") 
+            : "Ninguno";
+    this.lblMetodosUsados.innerHTML = metodosUsados;
   }
 
   mostrar(): void {

@@ -1,8 +1,9 @@
 const html = String.raw;
 export default class Cl_vJuego {
     lblCntPlayers;
-    lblValorUltiCarta;
-    lblValorMayoresCartas;
+    lblNombreUltimo;
+    lblNombresMayores;
+    lblMetodosUsados;
     btNuevoPlayer;
     tbPlayers;
     vista;
@@ -16,12 +17,15 @@ export default class Cl_vJuego {
         this.lblCntPlayers = document.getElementById("body_lblCntPlayers");
         if (!this.lblCntPlayers)
             throw new Error("Elemento 'body_lblCntPlayers' no encontrado en DOM");
-        this.lblValorUltiCarta = document.getElementById("body_lblValorUltiCarta");
-        if (!this.lblValorUltiCarta)
-            throw new Error("Elemento 'body_lblValorUltiCarta' no encontrado en DOM");
-        this.lblValorMayoresCartas = document.getElementById("body_lblValorMayoresCartas");
-        if (!this.lblValorMayoresCartas)
-            throw new Error("Elemento 'body_lblValorMayoresCartas' no encontrado en DOM");
+        this.lblNombreUltimo = document.getElementById("body_lblNombreUltimo");
+        if (!this.lblNombreUltimo)
+            throw new Error("Elemento 'body_lblNombreUltimo' no encontrado en DOM");
+        this.lblNombresMayores = document.getElementById("body_lblNombresMayores");
+        if (!this.lblNombresMayores)
+            throw new Error("Elemento 'body_lblNombresMayores' no encontrado en DOM");
+        this.lblMetodosUsados = document.getElementById("body_lblMetodosUsados");
+        if (!this.lblMetodosUsados)
+            throw new Error("Elemento 'body_lblMetodosUsados' no encontrado en DOM");
         this.tbPlayers = document.getElementById("body_players");
         if (!this.tbPlayers)
             throw new Error("Elemento 'body_players' no encontrado en DOM");
@@ -29,7 +33,7 @@ export default class Cl_vJuego {
     onNuevoPlayer(callback) {
         this.btNuevoPlayer.onclick = callback;
     }
-    mostrarPlayers({ players, cntPlayers, valorUltiCarta, valorMayoresCartas, }) {
+    mostrarPlayers({ players, cntPlayers, nombreUltimo, nombresMayores, metodosUsados }) {
         this.tbPlayers.innerHTML = "";
         players.forEach((player) => {
             const tr = document.createElement("tr");
@@ -43,10 +47,11 @@ export default class Cl_vJuego {
             this.tbPlayers.appendChild(tr);
         });
         this.lblCntPlayers.innerHTML = cntPlayers.toString();
-        this.lblValorUltiCarta.innerHTML = valorUltiCarta.toString();
-        this.lblValorMayoresCartas.innerHTML = Array.isArray(valorMayoresCartas)
-            ? valorMayoresCartas.join(", ")
-            : String(valorMayoresCartas);
+        this.lblNombreUltimo.innerHTML = nombreUltimo;
+        this.lblNombresMayores.innerHTML = Array.isArray(nombresMayores) && nombresMayores.length > 0
+            ? nombresMayores.join(", ")
+            : "Ninguno";
+        this.lblMetodosUsados.innerHTML = metodosUsados;
     }
     mostrar() {
         if (this.vista === null)

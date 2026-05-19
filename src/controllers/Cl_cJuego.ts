@@ -19,6 +19,7 @@ sume mayor puntuación.
 import Cl_mJuego from "../models/Cl_mJuego.js";
 import { I_vJuego } from "../interfaces/I_vJuego.js";
 import Cl_cPlayer from "./Cl_cPlayer.js";
+import Cl_mPlayer from "../models/Cl_mPlayer.js";
 
 export default class Cl_cJuego {
   private mJuego: Cl_mJuego = new Cl_mJuego();
@@ -28,21 +29,43 @@ export default class Cl_cJuego {
   constructor(vistaJuego: I_vJuego, controladorPlayer: Cl_cPlayer) {
     this.vJuego = vistaJuego;
     this.cPlayer = controladorPlayer;
-
+    // Conectamos el botón de la vista con el controlador secundario
     this.vJuego.onNuevoPlayer(() => this.procesar1Player());
+    // Cargamos los datos en duro exigidos apenas arranca
+    this.cargarDatosHardcoded();
   }
 
+  cargarDatosHardcoded() {
+    const player1 = new Cl_mPlayer({ nombre: "Juan", carta1: 1, carta2: 5, carta3: 2});
+    const player2 = new Cl_mPlayer({ nombre: "José", carta1: 12, carta2: 1, carta3: 1});
+    const player3 = new Cl_mPlayer({ nombre: "Rosa", carta1: 10, carta2: 9, carta3: 8});
+
+    this.mJuego.agregarPlayer(player1);
+    this.mJuego.agregarPlayer(player2);
+    this.mJuego.agregarPlayer(player3);
+
+    this.actualizarReporte();
+  }
+  
   private procesar1Player() {
     this.cPlayer.solicitarPlayer((player) => {
       if (player !== null) {
         this.mJuego.agregarPlayer(player);
-        this.vJuego.mostrarPlayers({
-          players: this.mJuego.players,
-          cntPlayers : this.mJuego.cantidadPlayers(),
-          valorUltiCarta: this.mJuego.valorUltimaCarta(),
-          valorMayoresCartas: this.mJuego.nombreCartasMayoresQueUltimaCarta(),
-        });
+        this.actualizarReporte();
       }
     });
+  }
+
+  private actualizarReporte(): void {
+    let ultimo = this.mJuego.ultimoPlayer();
+    let nombreUltimo = ultimo ? ultimo.nombre : "Desconocido";
+    // Pasamos el paquete completo a la vista
+    this.vJuego.mostrarPlayers({
+      players: this.mJuego.players,
+      cntPlayers: this.mJuego.cantidadPlayers(),
+      nombreUltimo: nombreUltimo,
+      nombresMayores: this.mJuego.nombreCartasMayoresQueUltimaCarta(),
+      metodosUsados: "push, length, forEach (Ciclos base en modelo)"
+    })
   }
 }

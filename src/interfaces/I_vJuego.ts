@@ -6,12 +6,14 @@ export interface I_vJuego {
   mostrarPlayers({
     players,
     cntPlayers,
-    valorUltiCarta,
-    valorMayoresCartas,
+    nombreUltimo,
+    nombresMayores,
+    metodosUsados
   }: {
     players: Cl_mPlayer[];
     cntPlayers: number;
-    valorUltiCarta: number;
-    valorMayoresCartas: string[];
+    nombreUltimo: string;
+    nombresMayores: string[];
+    metodosUsados: string;
   }): void;
 }

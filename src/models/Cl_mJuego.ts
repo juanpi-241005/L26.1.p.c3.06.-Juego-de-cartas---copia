@@ -11,24 +11,25 @@ export default class Cl_mJuego {
     return this.players.length;
   }
 
-  valorUltimaCarta(): number {
-    if (this.players.length === 0) return 0;
-    return this.players [this.players.length - 1]. carta3;
+  ultimoPlayer(): Cl_mPlayer | null {
+    if (this.players.length === 0) return null;
+    return this.players [this.players.length- 1];
   }
 
   nombreCartasMayoresQueUltimaCarta(): string[] {
     let nombres: string[] = [];
-    const valorCartaFinal = this.valorUltimaCarta();
+    let ultimo = this.ultimoPlayer();
+    if(ultimo === null) return nombres;
+
+    let puntajeReferencia = ultimo.puntos;
+
     for (let i = 0; i < this.players.length; i++) {
-      let player = this.players[i];
-      if (
-        player.carta1 > valorCartaFinal ||
-        player.carta2 > valorCartaFinal ||
-        player.carta3 > valorCartaFinal
-      ) {
-        nombres[nombres.length] = player.nombre;
+      let playerActual = this.players[i];
+
+      if (playerActual.puntos > puntajeReferencia) {
+        nombres.push(playerActual.nombre);
       }
     }
     return nombres;
-  }
+    }
 }
